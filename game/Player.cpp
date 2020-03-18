@@ -1083,7 +1083,7 @@ idPlayer::idPlayer() {
 
 	doInitWeapon			= false;
 	noclip					= false;
-	godmode					= false;
+	godmode					= true;
 	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
 
 	spawnAnglesSet			= false;
@@ -1178,6 +1178,11 @@ idPlayer::idPlayer() {
 	weaponEnabled			= true;
  	showWeaponViewModel		= true;
 	oldInventoryWeapons		= 0;
+
+	bestTime = 0;
+	startTime = 0;
+	stopTime = 0;
+
 
 // RAVEN BEGIN
 // mekberg: allow disabling of objectives during non-cinematic time periods
@@ -1499,7 +1504,7 @@ void idPlayer::Init( void ) {
 	const char			*value;
 	
 	noclip					= false;
-	godmode					= false;
+	godmode					= true;
 	godmodeDamage			= 0;
 	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
 
@@ -3391,6 +3396,17 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	int temp;
 	
 	assert ( _hud );
+
+	bestTime = stopTime - startTime;
+	
+	if (bestTime < 0){
+		bestTime = 0;
+	}
+
+	char buff[100];
+	sprintf_s(buff, "Your time: %i", bestTime);
+	_hud->SetStateString("timertext", buff);
+
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );
 	if ( temp != health ) {		
@@ -8737,6 +8753,7 @@ idPlayer::AdjustSpeed
 */
 void idPlayer::AdjustSpeed( void ) {
 	float speed;
+	float heightjmp = 48;
 
 	if ( spectating ) {
 		speed = pm_spectatespeed.GetFloat();
@@ -8758,9 +8775,37 @@ void idPlayer::AdjustSpeed( void ) {
 		speed *= 0.33f;
 	}
 
-	physicsObj.SetSpeed( speed, pm_crouchspeed.GetFloat() );
-}
+	if (currentWeapon==1){
+		speed = 10.0f;
+		pm_isZoomed.SetFloat(101.1f);
+	}
+	if (currentWeapon == 2){
+		speed = 590.0f;
+	}
+	if (currentWeapon == 3){
+		speed = 10.0f;
+	}
+	if (currentWeapon == 4){
+		heightjmp = 200.0f;
+		speed = 10.1f;
+	}
+	if (currentWeapon == 6){
+		speed = 1.1f;
+		heightjmp = 0.1f;
+	}
+	if (currentWeapon == 7){
+		speed = 10.0f;
+		heightjmp = 200.1f;
+	}
+	if (currentWeapon == 8){
+		speed = 1000.0f;
+		heightjmp = 300.1f;
+		pm_runbob.SetFloat(1.1f);
+	}
 
+	physicsObj.SetSpeed( speed, pm_crouchspeed.GetFloat() );
+	physicsObj.SetMaxJumpHeight(heightjmp);
+}
 /*
 ==============
 idPlayer::AdjustBodyAngles

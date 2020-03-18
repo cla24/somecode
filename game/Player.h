@@ -845,6 +845,13 @@ private:
 	bool					weaponEnabled;
  	bool					showWeaponViewModel;
 
+	int						bestTime;
+	int						startTime;
+	int						stopTime;
+
+	int						laststartTime;
+	int						lastbestTim;
+
 	rvClientEntityPtr<rvClientAFAttachment>	clientHead;
 // RAVEN BEGIN
 // mekberg: allow disabling of objectives during non-cinematic time periods
