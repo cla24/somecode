@@ -12,8 +12,13 @@ rocket launcher, grenade launcher - can shoot, can't move(4,6 respectively)
 4. Enemy attacks - hinder movement
 5. Killing enemies gives a speed boost
 
+Common Deliverables
 Updated GUI
+
 In-Game Visuals with edits
+
 ReadMe with descriptino of changes/instructions
+
 Shortcut that auto-launches mod - for your shortcut, include "+disconnect =novid +set fs_game (modname)" mod name would be oopmod in this case
+
 Compiling with no additional Warnings
