@@ -1083,7 +1083,7 @@ idPlayer::idPlayer() {
 
 	doInitWeapon			= false;
 	noclip					= false;
-	godmode					= true;
+	godmode					= false;
 	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
 
 	spawnAnglesSet			= false;
@@ -1504,7 +1504,7 @@ void idPlayer::Init( void ) {
 	const char			*value;
 	
 	noclip					= false;
-	godmode					= true;
+	godmode					= false;
 	godmodeDamage			= 0;
 	undying					= g_forceUndying.GetBool() ? !gameLocal.isMultiplayer : false;
 
@@ -1677,7 +1677,7 @@ void idPlayer::Init( void ) {
 	// initialize the script variables
 	memset ( &pfl, 0, sizeof( pfl ) );
 	pfl.onGround = true;
-	pfl.noFallingDamage = false;
+	pfl.noFallingDamage = true;
 
 	// Start in idle
 	SetAnimState( ANIMCHANNEL_TORSO, "Torso_Idle", 0 );
@@ -7484,7 +7484,7 @@ void idPlayer::CrashLand( const idVec3 &oldOrigin, const idVec3 &oldVelocity ) {
 	}
 
 	// no falling damage if touching a nodamage surface
- 	noDamage = false;
+ 	noDamage = true;
 	for ( int i = 0; i < physicsObj.GetNumContacts(); i++ ) {
 		const contactInfo_t &contact = physicsObj.GetContact( i );
 		if ( contact.material->GetSurfaceFlags() & SURF_NODAMAGE ) {
@@ -8775,31 +8775,37 @@ void idPlayer::AdjustSpeed( void ) {
 		speed *= 0.33f;
 	}
 
-	if (currentWeapon==1){
-		speed = 10.0f;
+	//8 machine gun
+	//1 lightning gun
+	//2 shotgun
+	//4 grenade launcher
+	//6 rocktlauncher
+
+	//machine gun
+	if (currentWeapon==8){
+		speed = 125.0f;
 		pm_isZoomed.SetFloat(101.1f);
+		pm_jumpheight.SetFloat(48.0f);
 	}
-	if (currentWeapon == 2){
-		speed = 590.0f;
-	}
-	if (currentWeapon == 3){
-		speed = 10.0f;
-	}
-	if (currentWeapon == 4){
-		heightjmp = 200.0f;
-		speed = 10.1f;
-	}
+	//rocket launcher
 	if (currentWeapon == 6){
-		speed = 1.1f;
-		heightjmp = 0.1f;
+		speed = 100.0f;
+		pm_jumpheight.SetFloat(48.0f);
 	}
-	if (currentWeapon == 7){
-		speed = 10.0f;
-		heightjmp = 200.1f;
+	//shotgun
+	if (currentWeapon == 2){
+		speed = 50.0f;
+		pm_jumpheight.SetFloat(48.0f);
 	}
-	if (currentWeapon == 8){
-		speed = 1000.0f;
-		heightjmp = 300.1f;
+	//grenade launcher
+	if (currentWeapon == 4){
+		pm_jumpheight.SetFloat(200.0f);
+		speed = 100.0f;
+	}
+	//lightninggun
+	if (currentWeapon == 1){
+		speed = 2000.0f;
+		pm_jumpheight.SetFloat(1500.0f);
 		pm_runbob.SetFloat(1.1f);
 	}
 
@@ -11601,7 +11607,7 @@ idPlayer::Event_AllowFallDamage
 */
 void idPlayer::Event_AllowFallDamage( int toggle ) {
 	if( toggle )	{
-		pfl.noFallingDamage = false;
+		pfl.noFallingDamage = true;
 	} else {
 		pfl.noFallingDamage = true;
 	}
