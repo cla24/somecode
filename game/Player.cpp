@@ -18,6 +18,7 @@
 #include "Healing_Station.h"
 #include "ai/AI_Medic.h"
 
+
 // RAVEN BEGIN
 // nrausch: support for turning the weapon change ui on and off
 #ifdef _XENON
@@ -3405,7 +3406,7 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 
 	char buff[100];
 	sprintf_s(buff, "Your time: %i", bestTime);
-	_hud->SetStateString("timertext", buff);
+	_hud->SetStateString("player_bestTime", buff);
 
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );
@@ -8565,19 +8566,58 @@ void idPlayer::PerformImpulse( int impulse ) {
  				gameLocal.mpGame.ToggleSpectate( );
    			}
    			break;
-   		}
+		}
+
+		//case IMPULSE_23
+		case IMPULSE_23: {
+			int sTime = gameLocal.time;
+			int convertedTime = sTime/ 1000;
+			gameLocal.Printf("%d", convertedTime);
+			startTime = convertedTime;
+			/*
+			int fileTime = 0;
+			FILE * pFile;
+			pFile = fopen("startTime.txt", "r+");
+
+			fprintf(pFile, "%i", convertedTime);
+			gameLocal.Printf("%d", fileTime);
+			fclose(pFile);
+			break;
+			*/
+		}
+
+		//case IMPULSE_24
+		case IMPULSE_24: {
+			int sTime = gameLocal.time;
+			int newTime = sTime / 1000;
+			gameLocal.Printf("%d", newTime);
+			stopTime = newTime;
+			/*
+			FILE * pFile;
+			pFile = fopen("bestTimes.txt", "r+");
+			fprintf(pFile, "%i", newTime);
+			fclose(pFile);
+			gameLocal.Printf("saved the time");
+			break;
+			*/
+		}
+
 				
 		case IMPULSE_28: {
- 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
+							 /*
+			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
  				gameLocal.mpGame.CastVote( gameLocal.localClientNum, true );
    			}
-   			break;
+			*/
+			
    		}
    		case IMPULSE_29: {
- 			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
+							 /*
+			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
 				gameLocal.mpGame.CastVote( gameLocal.localClientNum, false );
    			}
-   			break;
+			*/
+			
    		}
 		case IMPULSE_40: {
 			idFuncRadioChatter::RepeatLast();
@@ -8783,13 +8823,13 @@ void idPlayer::AdjustSpeed( void ) {
 
 	//machine gun
 	if (currentWeapon==8){
-		speed = 125.0f;
+		speed = 50.0f;
 		pm_isZoomed.SetFloat(101.1f);
 		pm_jumpheight.SetFloat(48.0f);
 	}
 	//rocket launcher
 	if (currentWeapon == 6){
-		speed = 100.0f;
+		speed = 150.0f;
 		pm_jumpheight.SetFloat(48.0f);
 	}
 	//shotgun
@@ -8805,7 +8845,7 @@ void idPlayer::AdjustSpeed( void ) {
 	//lightninggun
 	if (currentWeapon == 1){
 		speed = 2000.0f;
-		pm_jumpheight.SetFloat(1500.0f);
+		pm_jumpheight.SetFloat(500.0f);
 		pm_runbob.SetFloat(1.1f);
 	}
 
