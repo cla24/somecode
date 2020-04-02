@@ -8571,9 +8571,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 		//case IMPULSE_23
 		case IMPULSE_23: {
 			int sTime = gameLocal.time;
-			int convertedTime = sTime/ 1000;
-			gameLocal.Printf("%d", convertedTime);
-			startTime = convertedTime;
+			int cTime = sTime/ 1000;
+			gameLocal.Printf("%d", cTime);
+			startTime = cTime;
 			/*
 			int fileTime = 0;
 			FILE * pFile;
@@ -8589,9 +8589,9 @@ void idPlayer::PerformImpulse( int impulse ) {
 		//case IMPULSE_24
 		case IMPULSE_24: {
 			int sTime = gameLocal.time;
-			int newTime = sTime / 1000;
-			gameLocal.Printf("%d", newTime);
-			stopTime = newTime;
+			int nTime = sTime / 1000;
+			gameLocal.Printf("%d", nTime);
+			stopTime = nTime;
 			/*
 			FILE * pFile;
 			pFile = fopen("bestTimes.txt", "r+");
