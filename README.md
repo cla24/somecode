@@ -4,7 +4,7 @@ it266 code
 Deliverables
 1. Track the time it takes for players to make checkpoints - high score list
 
-Track time by pressing "n" to start and stop by pressing "k" to stop.
+Track time by pressing "n" to start and stop by pressing "k" to stop. Ctrl Alt ~ to see time
 
 2. Player pickups - 5 to help them
 3. New guns - new effect on movement
