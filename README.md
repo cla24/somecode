@@ -11,7 +11,7 @@ Track time by pressing "n" to start and stop by pressing "k" to stop. Ctrl Alt ~
 
 Machine gun- can't move but can shoot (5)
 
-Shotgun - super speed (2)
+Shotgun - single shot, lots of damage, can't move (2)
 
 Lightning gun - move super fast, super hard to move/low damage (1)
 
