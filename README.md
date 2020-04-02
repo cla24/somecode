@@ -16,7 +16,9 @@ Shotgun - super speed (2)
 Lightning gun - move super fast, super hard to move/low damage (1)
 
 grenade launcher, rocket launcher - can shoot, can't move(3,4 respectively)
+
 4. Enemy attacks - hinder movement
+
 5. Killing enemies gives a speed boost
 
 Common Deliverables
